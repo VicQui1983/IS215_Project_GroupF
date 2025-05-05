@@ -84,6 +84,14 @@ def lambda_handler(event, context):
             'body': json.dumps(f'Article saved as {output_key}')
         }
 
+    except ValueError as ve:
+        print(f"❌ ValueError: {ve}")
+        return {'statusCode': 400, 'body': json.dumps(str(ve))}
+
+    except requests.exceptions.RequestException as re:
+        print(f"❌ OpenAI request error: {re}")
+        return {'statusCode': 500, 'body': json.dumps("OpenAI API error")}
+
     except Exception as e:
         print(f"❌ Unexpected error: {e}")
         return {'statusCode': 500, 'body': json.dumps("Unexpected error occurred")}
