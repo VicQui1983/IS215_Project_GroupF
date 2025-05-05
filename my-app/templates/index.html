@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>IS215-Group F</title>
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <h1>IS215-Group F<br>Image to Article Generator</h1>
+
+    <form method="POST" action="/upload" enctype="multipart/form-data" onsubmit="showLoading()">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Upload & Generate</button>
+    </form>
+
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        Generating article from your image. Please wait...
+    </div>
+
+    {% if image_url %}
+        <div class="preview">
+            <h2>Uploaded Image</h2>
+            <img src="{{ image_url }}" alt="Uploaded image">
+        </div>
+    {% endif %}
+
+    {% if article %}
+        <div class="result">
+            {% if title %}
+                <div class="title">
+                    {{ title }}
+                </div>
+            {% endif %}
+            <div class="article">
+                <p>{{ article }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+</body>
+</html>
